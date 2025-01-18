@@ -5,14 +5,14 @@ def main(pagina): # Função Principal para rodar o sistema
     pagina.add(titulo)
 
 
-    def enviar_mensagem_tunel(mensagem):
+    def enviar_mensagem_tunel(mensagem): # Função de enviar mensagem pelo tunel de comunicação local
         texto = ft.Text(mensagem)
         chat.controls.append(texto)
         pagina.update()
 
-    pagina.pubsub.subscribe(enviar_mensagem_tunel)
+    pagina.pubsub.subscribe(enviar_mensagem_tunel) # criação do tunel
 
-    def enviar_mensagem(evento):
+    def enviar_mensagem(evento): #Função de enviar mensagem para o chat
         nome_usuario = caixa_nome.value
         texto_campo_mensagem = campo_enviar_mensagem.value
         mensagem = f"{nome_usuario}: {texto_campo_mensagem}"
@@ -22,6 +22,7 @@ def main(pagina): # Função Principal para rodar o sistema
 
         pagina.update()
 
+    # Criação do campo para enviar as mensagens
     campo_enviar_mensagem = ft.TextField(label="Digite aqui sua mensagem", on_submit=enviar_mensagem)
     botao_enviar = ft.ElevatedButton("Enviar mensagem", on_click= enviar_mensagem)
     linha_enviar = ft.Row([campo_enviar_mensagem, botao_enviar])
@@ -29,7 +30,7 @@ def main(pagina): # Função Principal para rodar o sistema
     
     chat = ft.Column()
 
-    def entrar_no_chat(evento):
+    def entrar_no_chat(evento): #função para entrar no chat
         popup.open = False
         pagina.remove(titulo)
         pagina.remove(botao)
@@ -46,14 +47,14 @@ def main(pagina): # Função Principal para rodar o sistema
         pagina.update()
 
 
-    # POP UP
+    # criação do POPUP
     titulo_popup = ft.Text("Bem vindo ao Nosso zap")
     caixa_nome = ft.TextField(label="Escreva seu nome no chat", on_submit=entrar_no_chat)
     botao_popup = ft.ElevatedButton("Entrar no chat", on_click=entrar_no_chat)
 
     popup = ft.AlertDialog(title=titulo_popup, content=caixa_nome, actions=[botao_popup])
 
-    def abrir_popup(evento):
+    def abrir_popup(evento): # Função para abrir o popup quando clicar para iniciar chat
         pagina.dialog = popup
         popup.open = True
         pagina.update()
